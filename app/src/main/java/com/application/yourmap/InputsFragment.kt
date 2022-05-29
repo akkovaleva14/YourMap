@@ -1,28 +1,34 @@
 package com.application.yourmap
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.application.yourmap.databinding.FragmentInputsBinding
 
 
 class InputsFragment : BaseFragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    lateinit var binding: FragmentInputsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inputs, container, false)
+    ): View {
+        binding = FragmentInputsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
+    override fun onResume() {
+        super.onResume()
+        val args = this.arguments
+        if (args != null) {
+            val addressValue = args.getString("keyForAddress")
+            val latitudeValue = args.getDouble("keyForLat")
+            val longitudeValue = args.getDouble("keyForLong")
 
+            binding.textAddress.text = addressValue
+            binding.textLat.text = getString(R.string.latitude, latitudeValue.toString())
+            binding.textLong.text = getString(R.string.longitude, longitudeValue.toString())
+        }
     }
 }

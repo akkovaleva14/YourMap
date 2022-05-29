@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">YourMap</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buttonStart">Показать на карте</string>
     <string name="buttonPoint">Подтвердить адрес</string>
-    <string name="textChoice">Выбранный адрес</string>
+    <string name="textChoice">Выбранный адрес:</string>
+    <string name="longitude">Долгота %1$s</string>
+    <string name="latitude">Широта %1$s</string>
 </resources>

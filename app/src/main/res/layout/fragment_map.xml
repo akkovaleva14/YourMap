@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/indianRed"
-    tools:context=".MapFragment">
+    android:background="@color/indianRed">
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <LinearLayout
+        android:id="@+id/viewInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightCoral"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -25,6 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/bg_text"
+            android:padding="16dp"
+            android:textColor="@color/white"
             android:textSize="24sp"
             tools:text="здесь будет текст" />
 
@@ -36,7 +39,8 @@
             android:background="@drawable/bg_button"
             android:padding="16dp"
             android:text="@string/buttonPoint"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

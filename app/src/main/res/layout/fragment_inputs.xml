@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/indianRed"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".InputsFragment">
 
@@ -11,24 +12,53 @@
         android:id="@+id/textChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textChoice" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/salmon"
+        android:padding="24dp"
+        android:text="@string/textChoice"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textAddresse"
-        android:layout_width="wrap_content"
+        android:id="@+id/textAddress"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_text"
+        android:padding="24dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         tools:text="здесь будет текст" />
 
     <TextView
         android:id="@+id/textLat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="здесь будет текст" />
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_text"
+        android:padding="24dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:text="здесь будет текст " />
 
     <TextView
-        android:id="@+id/textLon"
-        android:layout_width="wrap_content"
+        android:id="@+id/textLong"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_text"
+        android:padding="24dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         tools:text="здесь будет текст" />
 
 </LinearLayout>

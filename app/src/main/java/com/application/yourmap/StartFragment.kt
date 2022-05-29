@@ -5,15 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.application.yourmap.databinding.FragmentStartBinding
 
 class StartFragment : BaseFragment() {
@@ -36,7 +34,7 @@ class StartFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
@@ -64,9 +62,11 @@ class StartFragment : BaseFragment() {
                     ),
                     locationPermissionCode
                 )
+                Toast.makeText(context, "It doesn't work YET", Toast.LENGTH_LONG).show()
             }
         } else {
             findLocation()
+            Toast.makeText(context, "It works", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -96,19 +96,19 @@ class StartFragment : BaseFragment() {
                 grantResults[1] == PackageManager.PERMISSION_GRANTED
             ) {
                 checkGps()
+                Toast.makeText(context, "It works RIGHT NOW", Toast.LENGTH_LONG).show()
             } else {
                 permissionDeniedJustNow = true
+                Toast.makeText(context, "It doesn't work", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     /* получаем у нашей системы - location-сервис. мы его получили: в том случае, если он доступен,
     мы переходим на нашу findLocation()
-    [ проверяем, включен ли gps ]
-    */
-
-
+    [ проверяем, включен ли gps ] */
     private fun checkGps() {
+
         val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             findLocation()
@@ -119,8 +119,6 @@ class StartFragment : BaseFragment() {
     }
 
     fun findLocation() {
-
-      //  Toast.makeText(context, "GOOD JOB", Toast.LENGTH_SHORT).show()
         val latAndLong = getLatAndLong(context)
         val mapFragment = MapFragment()
         latAndLong.first?.let { argsCurrent.putDouble("keyForCurLat", it) }
