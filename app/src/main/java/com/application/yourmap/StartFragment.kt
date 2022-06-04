@@ -10,9 +10,9 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.application.yourmap.databinding.FragmentStartBinding
+
 
 class StartFragment : BaseFragment() {
 
@@ -25,17 +25,12 @@ class StartFragment : BaseFragment() {
     lateinit var binding: FragmentStartBinding
     private val argsCurrent = Bundle()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val mapFragment: MapFragment = MapFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -44,11 +39,12 @@ class StartFragment : BaseFragment() {
         super.onResume()
         binding.buttonStart.setOnClickListener {
             checkPermission()
+            if (permissionDeniedJustNow) {
+                replaceFragment(MapFragment(), START)
+                permissionDeniedJustNow = false
+            }
         }
-        if (permissionDeniedJustNow) {
-            replaceFragment(MapFragment(), START)
-            permissionDeniedJustNow = false
-        }
+
     }
 
 
@@ -62,11 +58,9 @@ class StartFragment : BaseFragment() {
                     ),
                     locationPermissionCode
                 )
-                Toast.makeText(context, "It doesn't work YET", Toast.LENGTH_LONG).show()
             }
         } else {
             findLocation()
-            Toast.makeText(context, "It works", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -96,10 +90,8 @@ class StartFragment : BaseFragment() {
                 grantResults[1] == PackageManager.PERMISSION_GRANTED
             ) {
                 checkGps()
-                Toast.makeText(context, "It works RIGHT NOW", Toast.LENGTH_LONG).show()
             } else {
                 permissionDeniedJustNow = true
-                Toast.makeText(context, "It doesn't work", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -118,12 +110,15 @@ class StartFragment : BaseFragment() {
         }
     }
 
+
     fun findLocation() {
+
         val latAndLong = getLatAndLong(context)
         val mapFragment = MapFragment()
         latAndLong.first?.let { argsCurrent.putDouble("keyForCurLat", it) }
         latAndLong.second?.let { argsCurrent.putDouble("keyForCurLon", it) }
         mapFragment.arguments = argsCurrent
+
         replaceFragment(mapFragment, START)
     }
 }

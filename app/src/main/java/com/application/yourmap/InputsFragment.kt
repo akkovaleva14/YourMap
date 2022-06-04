@@ -10,6 +10,10 @@ import com.application.yourmap.databinding.FragmentInputsBinding
 class InputsFragment : BaseFragment() {
     lateinit var binding: FragmentInputsBinding
 
+    companion object {
+        const val INPUT = "inputsFragment"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

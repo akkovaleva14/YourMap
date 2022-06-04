@@ -20,7 +20,8 @@ class GeocoderImpl {
                 }
 
                 return ""
-            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+            } catch (e: Exception) {
+                //  Log.i("sasha", "getAddressByLatAndLong: $e")
                 return ""
             }
         }

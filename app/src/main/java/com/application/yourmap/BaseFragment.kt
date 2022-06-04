@@ -7,8 +7,9 @@ abstract class BaseFragment : Fragment() {
     fun replaceFragment(fragment: BaseFragment, fragmentTag: String?) {
         activity?.supportFragmentManager
             ?.beginTransaction()
-            ?.replace(R.id.container, fragment, fragmentTag)
-            ?.addToBackStack(null)
+            ?.replace(R.id.activity_main, fragment, fragmentTag)
+            ?.addToBackStack(fragmentTag)
             ?.commit()
     }
+
 }
