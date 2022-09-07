@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">YourMap</string>
-    <string name="buttonStart">Показать на карте</string>
+    <string name="buttonLaunch">Показать на карте</string>
     <string name="buttonPoint">Подтвердить адрес</string>
-    <string name="textChoice">Выбранный адрес:</string>
-    <string name="longitude">Долгота %1$s</string>
-    <string name="latitude">Широта %1$s</string>
+    <string name="textLaunchEmpty">Точка не задана</string>
+    <string name="latitude">\n(широта %1$s,</string>
+    <string name="longitude">\nдолгота %1$s)</string>
 </resources>

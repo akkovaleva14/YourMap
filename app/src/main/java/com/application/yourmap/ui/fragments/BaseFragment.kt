@@ -1,6 +1,7 @@
-package com.application.yourmap
+package com.application.yourmap.ui.fragments
 
 import androidx.fragment.app.Fragment
+import com.application.yourmap.R
 
 abstract class BaseFragment : Fragment() {
 
@@ -11,5 +12,4 @@ abstract class BaseFragment : Fragment() {
             ?.addToBackStack(fragmentTag)
             ?.commit()
     }
-
 }

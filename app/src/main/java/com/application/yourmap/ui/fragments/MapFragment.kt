@@ -1,12 +1,12 @@
-package com.application.yourmap
-
+package com.application.yourmap.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.application.yourmap.GeocoderImpl.Companion.getAddressByLatAndLong
+import com.application.yourmap.functionality.GeocoderImpl.Companion.getAddressByLatAndLong
+import com.application.yourmap.R
 import com.application.yourmap.databinding.FragmentMapBinding
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
@@ -17,15 +17,14 @@ import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.PlacemarkMapObject
 import com.yandex.runtime.ui_view.ViewProvider
 
-
 class MapFragment : BaseFragment() {
-
-    lateinit var binding: FragmentMapBinding
-    val args = Bundle()
 
     companion object {
         const val MAP = "mapFragment"
     }
+
+    lateinit var binding: FragmentMapBinding
+    val args = Bundle()
 
     override fun onStart() {
         super.onStart()
@@ -55,9 +54,9 @@ class MapFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         binding.buttonPoint.setOnClickListener {
-            val inputsFragment = InputsFragment()
-            inputsFragment.arguments = args
-            replaceFragment(inputsFragment, MAP)
+            val launchFragment = LaunchFragment()
+            launchFragment.arguments = args
+            replaceFragment(launchFragment, MAP)
         }
     }
 
@@ -72,16 +71,18 @@ class MapFragment : BaseFragment() {
         )
     }
 
-    val listener = object : InputListener {
+    private val listener = object : InputListener {
         @SuppressLint("UseCompatLoadingForDrawables")
         override fun onMapTap(map: Map, point: Point) {
             val view = View(context).apply {
                 background = context.getDrawable(R.drawable.ic_baseline_place_24)
             }
+
             val newPoint = Point(point.latitude, point.longitude)
             binding.mapview.map.mapObjects.clear()
             addMarker(newPoint.latitude, newPoint.longitude, view)
             binding.viewInfo.visibility = View.VISIBLE
+
             val address =
                 context?.let { getAddressByLatAndLong(it, newPoint.latitude, newPoint.longitude) }
             binding.textPoint.text = address
@@ -92,9 +93,7 @@ class MapFragment : BaseFragment() {
 
         override fun onMapLongTap(p0: Map, p1: Point) {
         }
-
     }
-
 
     private fun addMarker(latitude: Double, longitude: Double, view: View): PlacemarkMapObject {
         return binding.mapview.map.mapObjects.addPlacemark(

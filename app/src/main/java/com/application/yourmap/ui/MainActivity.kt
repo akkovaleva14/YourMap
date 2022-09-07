@@ -1,13 +1,15 @@
-package com.application.yourmap
+package com.application.yourmap.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.application.yourmap.R
+import com.application.yourmap.ui.fragments.LaunchFragment
 import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
 
-    val key: String = "fe35bed6-6bef-401c-a925-5d12055f65a5"
+    private val key: String = "fe35bed6-6bef-401c-a925-5d12055f65a5"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MapKitFactory.setApiKey(key)
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        openFragment(StartFragment())
+        openFragment(LaunchFragment())
     }
 
     private fun openFragment(fragment: Fragment) {

@@ -1,15 +1,31 @@
-package com.application.yourmap
+package com.application.yourmap.functionality
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
 
+const val locationPermissionCode = 109
+
+fun isLocationPermissionGranted(context: Context?): Boolean {
+    return context?.let { context ->
+        ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+    } ?: false
+}
 
 @SuppressLint("MissingPermission")
-// использовать только если разрешение УЖЕ получено
 fun getLatAndLong(context: Context?): Pair<Double?, Double?> {
     var currentLocation: Location? = null
     var locationByGps: Location? = null
@@ -76,27 +92,23 @@ fun getLatAndLong(context: Context?): Pair<Double?, Double?> {
     }
 
     if (locationByGps != null && locationByNetwork != null) {
-        if (locationByGps?.accuracy ?: 0f > locationByNetwork?.accuracy ?: 0f) {
+        if ((locationByGps?.accuracy ?: 0f) > (locationByNetwork?.accuracy ?: 0f)) {
             currentLocation = locationByGps
             latitude = currentLocation?.latitude
             longitude = currentLocation?.longitude
-
         } else {
             currentLocation = locationByNetwork
             latitude = currentLocation?.latitude
             longitude = currentLocation?.longitude
-
         }
     } else if (locationByGps != null) {
         currentLocation = locationByGps
         latitude = currentLocation?.latitude
         longitude = currentLocation?.longitude
-
     } else if (locationByNetwork != null) {
         currentLocation = locationByNetwork
         latitude = currentLocation?.latitude
         longitude = currentLocation?.longitude
-
     } else {
         latitude = defaultLat
         longitude = defaultLong
@@ -104,6 +116,5 @@ fun getLatAndLong(context: Context?): Pair<Double?, Double?> {
 
     locationManager?.removeUpdates(networkLocationListener)
     locationManager?.removeUpdates(gpsLocationListener)
-
     return Pair(latitude, longitude)
 }

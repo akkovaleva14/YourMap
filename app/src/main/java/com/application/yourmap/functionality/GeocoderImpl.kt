@@ -1,4 +1,4 @@
-package com.application.yourmap
+package com.application.yourmap.functionality
 
 import android.content.Context
 import android.location.Geocoder
@@ -21,7 +21,6 @@ class GeocoderImpl {
 
                 return ""
             } catch (e: Exception) {
-                //  Log.i("sasha", "getAddressByLatAndLong: $e")
                 return ""
             }
         }
